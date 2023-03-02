@@ -1,22 +1,17 @@
 import numpy as np
 import math
 
-"""
-RNA相似度
-"""
+
 def GetDiseaseId(inMat, miRNAId, disease_length):
     DiseaseId = []
     for i in range(disease_length):
         if inMat.T[miRNAId][i] == 1:
             DiseaseId.append(i)
     return DiseaseId
-"""
-Jaccard距离
-"""
+
 def jaccard_similarity_miRNA(intMat, miRNA_length, disease_length):
         similarity = []
         for i in range(miRNA_length):
-            # print("第", i, "回合")
             temp = []
             i_count = len(GetDiseaseId(intMat, i, disease_length))
             for j in range(miRNA_length):
@@ -33,13 +28,10 @@ def jaccard_similarity_miRNA(intMat, miRNA_length, disease_length):
             Similarity = np.array(similarity, dtype=np.float64)
         return Similarity
 
-""""
-基于物品
-"""
+
 def itemcf_similarity(intMat, miRNA_length, disease_length):
     similarity = []
     for i in range(miRNA_length):
-        # print("第", i, "回合")
         temp = []
         i_count = len(GetDiseaseId(intMat, i, disease_length))
         for j in range(miRNA_length):
@@ -55,9 +47,7 @@ def itemcf_similarity(intMat, miRNA_length, disease_length):
         Similarity = np.array(similarity, dtype=np.float64)
     return Similarity
 
-"""
-基于疾病
-"""
+
 def GetMicRNAId(inMat, DiseaseId, miRNA_length):
     micRNAId = []
     for i in range(miRNA_length):
@@ -65,12 +55,10 @@ def GetMicRNAId(inMat, DiseaseId, miRNA_length):
             micRNAId.append(i)
     return micRNAId
 
-# 最终输出一个len(disease)*len(disease)的相似矩阵
-#  383*383
+
 def usercf_Similarity(intMat, miRNA_length, disease_length):
     similarity = []
     for i in range(disease_length):
-        # print("第", i, "回合")
         temp = []
         i_count = len(GetMicRNAId(intMat, i, miRNA_length))
         for j in range(disease_length):
@@ -88,7 +76,6 @@ def usercf_Similarity(intMat, miRNA_length, disease_length):
 def jaccard_similarity_disease(intMat, miRNA_length, disease_length):
     similarity = []
     for i in range(disease_length):
-        # print("第", i, "回合")
         temp = []
         i_count = len(GetMicRNAId(intMat, i, miRNA_length))
         for j in range(disease_length):
