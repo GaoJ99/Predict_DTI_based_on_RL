@@ -4,8 +4,6 @@ from sklearn.metrics import auc
 
 class EnvModel:
     def __init__(self, name, seeds_index, data_index,  T, D):
-    # def __init__(self, name):
-        # 动作空间
         action_space = []
         for x in range(-1, 2, 1):
             for y in range(-1, 2, 1):
@@ -36,7 +34,6 @@ class EnvModel:
         return model
 
 
-    # 根据状态和动作得出即时奖励和下一个状态以及是否结束当前迭代
     def step(self, state_list, action, count):
         action = self.action_spaces[action]
 
@@ -48,14 +45,11 @@ class EnvModel:
         auc_val = auc(fpr, tpr)
         reward = aupr_val + auc_val
 
-        # 根据所采取得动作来更新以下状态
         state_list_ = [round(state_list[0] + action[0], 2), round(state_list[1] + action[1], 2), round(state_list[2] + action[2], 2),
                        round(state_list[3] - action[0] - action[1] - action[2], 2)]
 
 
-        #  判断更新后的状态是否符合现实
         if ((0 <= state_list_[0] <= 1) and (0 <= state_list_[1] <= 1) and (0 <= state_list_[2] <= 1) and (0 <= state_list_[3] <= 1)):
-            # 算出合并的模型
             model_ = self.choose(state_list_, count)
             prec_, rec_, thr_ = precision_recall_curve(self.test_label, model_)
             self.rec = rec_
@@ -78,18 +72,11 @@ class EnvModel:
             aupr_val_ = 0
             auc_val_ = 0
             done = True
-        # print("state_list_:", state_list_)
         return state_list_, Reward, done, auc_val_, aupr_val_
 
-#
 if __name__ == "__main__":
     env = EnvModel('nr')
     print("env.action_spaces:", env.action_spaces)
-    # print("env.action_number", env.action_number)
-    # for i in range(env.action_number):
-    #     print(i, env.action_spaces[i])
-    # print(env.models)
-
 
 
 
