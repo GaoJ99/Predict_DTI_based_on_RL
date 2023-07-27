@@ -6,4 +6,4 @@
 
 4.rl_Qtable.py is the code for establishing the Q table
 
-5.run_dtp2.py is the main code for building the QLDTI method
+5.run_dtp2.py is the main code for building the QLDTI method.By running this file and using the QLDTI method to predict DTI, the average reward convergence figure, AUC value, and AUPR value will be obtained.
